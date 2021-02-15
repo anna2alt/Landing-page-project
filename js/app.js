@@ -87,7 +87,7 @@ function clickNavButton(e) {
         button.classList.remove('navbar__button-active');
     }
     button.classList.add('navbar__button-active');*/
-    buttonclicked = true;
+    buttonClicked = true;
     setActiveSection(button.dataset.section, true);
 
   /*  const sections = document.getElementsByTagName('section');
@@ -109,9 +109,9 @@ function setActiveSection(sectionId, scrollTo = false) {
     activeSectionId = sectionId;
     if (scrollTo) {
         sectionActive.scrollIntoView({behavior: "smooth"});
-      /*  setTimeout(function() {
+        setTimeout(function() {
             buttonClicked = false;
-        }, 1000);*/
+        }, 1000);
     }
 
     const activeButton = document.querySelector(`.navbar__button[data-section=${sectionId}]`);
