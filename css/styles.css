@@ -74,6 +74,33 @@ section {
     display: inline-block;
 }
 
+.navbar__menu button {
+    background-color: white;
+    background-color: transparent;
+    border: 2px solid white;
+    border: 2px solid transparent;
+    color: rgb(0, 59, 70);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.navbar__menu button:hover {
+    border-bottom: 2px solid rgb(0, 59, 70);
+}
+
+.navbar__menu button:focus {
+    outline: none;
+}
+
+.navbar__menu button.navbar__button-active {
+    background-color: aquamarine;
+}
+
+/*
 .navbar__menu .menu__link {
     display: block;
     padding: 1em;
@@ -86,7 +113,7 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
-}
+}*/
 
 /* Header Styles */
 .page__header {
