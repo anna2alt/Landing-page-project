@@ -56,10 +56,9 @@ function buildNavigation() {
         navbarList.appendChild(newItem);
     }
 
+    navbarList.addEventListener('click', clickNavButton);
  /*   const firstButton = document.querySelector('.navbar__button');
     firstButton.classList.add('navbar__button-active');*/
-
-    navbarList.addEventListener('click', clickNavButton);
 }
 
 function getSectionsBorderlines() {
@@ -117,17 +116,33 @@ function setActiveSection(sectionId, scrollTo = false) {
     activeButton.classList.add('navbar__button-active');
 }
 
+function setNavigationVisibility(visible) {
+    const navbarList = document.getElementById('navbar__list');
+    if (visible) {
+        navbarList.style.display = '';
+    } else {
+        if (navbarList.matches(':hover')) {
+            setTimeout(setNavigationVisibility, 5000, false);
+        } else {
+            navbarList.style.display = 'none';
+        }
+    }
+}
+
 function checkCurrentSection() {
-    //window.scrollY
-    let centerLine = window.scrollY + document.documentElement.clientHeight / 2;
+    setNavigationVisibility(true);
+
+    let viewLine = window.scrollY + document.documentElement.clientHeight / 4;
     for (borderlines of sectionsBorderlines) {
-        if (borderlines.top < centerLine && borderlines.bottom > centerLine) {
+        if (borderlines.top < viewLine && borderlines.bottom > viewLine) {
             if (activeSectionId != borderlines.id) {
                 setActiveSection(borderlines.id);
             }
             break;
         }
     }
+
+    setTimeout(setNavigationVisibility, 5000, false);
 }
 
 
@@ -144,8 +159,8 @@ function checkCurrentSection() {
 */
 
 // Build menu 
-buildNavigation();
-getSectionsBorderlines();
+document.addEventListener('DOMContentLoaded', buildNavigation);
+document.addEventListener('DOMContentLoaded', getSectionsBorderlines);
 
 // Scroll to section on link click
 
