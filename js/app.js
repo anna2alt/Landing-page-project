@@ -19,6 +19,7 @@
 */
 let activeSectionId;
 let sectionsBorderlines = [];
+let hideNavigationId;
 
 /**
  * End Global Variables
@@ -122,15 +123,17 @@ function setNavigationVisibility(visible) {
         navbarList.style.display = '';
     } else {
         if (navbarList.matches(':hover')) {
+            clearTimeout(hideNavigationId);
             setTimeout(setNavigationVisibility, 5000, false);
         } else {
-            navbarList.style.display = 'none';
+            hideNavigationId = navbarList.style.display = 'none';
         }
     }
 }
 
 function checkCurrentSection() {
     setNavigationVisibility(true);
+    clearTimeout(hideNavigationId);
 
     let viewLine = window.scrollY + document.documentElement.clientHeight / 4;
     for (borderlines of sectionsBorderlines) {
@@ -142,7 +145,7 @@ function checkCurrentSection() {
         }
     }
 
-    setTimeout(setNavigationVisibility, 5000, false);
+    hideNavigationId = setTimeout(setNavigationVisibility, 5000, false);
 }
 
 
