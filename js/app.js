@@ -20,6 +20,7 @@
 let activeSectionId;
 let sectionsBorderlines = [];
 let hideNavigationId;
+let buttonClicked = false;
 
 /**
  * End Global Variables
@@ -58,8 +59,8 @@ function buildNavigation() {
     }
 
     navbarList.addEventListener('click', clickNavButton);
- /*   const firstButton = document.querySelector('.navbar__button');
-    firstButton.classList.add('navbar__button-active');*/
+    const firstButton = document.querySelector('.navbar__button');
+    firstButton.classList.add('navbar__button-active');
 }
 
 function getSectionsBorderlines() {
@@ -77,22 +78,23 @@ function getSectionsBorderlines() {
 }
 
 function clickNavButton(e) {
-    const buttonClicked = e.target;
-    if (!buttonClicked.tagName || buttonClicked.tagName != 'BUTTON') 
+    const button = e.target;
+    if (!button.tagName || button.tagName != 'BUTTON') 
         return;
     
    /* const buttons = document.getElementsByClassName('navbar__button');
     for (button of buttons) {
         button.classList.remove('navbar__button-active');
     }
-    buttonClicked.classList.add('navbar__button-active');*/
-    setActiveSection(buttonClicked.dataset.section, true);
+    button.classList.add('navbar__button-active');*/
+    buttonclicked = true;
+    setActiveSection(button.dataset.section, true);
 
   /*  const sections = document.getElementsByTagName('section');
     for (section of sections) {
         section.classList.remove('your-active-class');
     }
-    const sectionActive = document.getElementById(buttonClicked.dataset.section);
+    const sectionActive = document.getElementById(button.dataset.section);
     sectionActive.scrollIntoView({behavior: "smooth"});
     sectionActive.classList.add('your-active-class');*/
 }
@@ -107,6 +109,9 @@ function setActiveSection(sectionId, scrollTo = false) {
     activeSectionId = sectionId;
     if (scrollTo) {
         sectionActive.scrollIntoView({behavior: "smooth"});
+      /*  setTimeout(function() {
+            buttonClicked = false;
+        }, 1000);*/
     }
 
     const activeButton = document.querySelector(`.navbar__button[data-section=${sectionId}]`);
@@ -124,7 +129,7 @@ function setNavigationVisibility(visible) {
     } else {
         if (navbarList.matches(':hover')) {
             clearTimeout(hideNavigationId);
-            setTimeout(setNavigationVisibility, 5000, false);
+            setTimeout(setNavigationVisibility, 2000, false);
         } else {
             hideNavigationId = navbarList.style.display = 'none';
         }
@@ -132,6 +137,10 @@ function setNavigationVisibility(visible) {
 }
 
 function checkCurrentSection() {
+    if (buttonClicked) {
+        return;
+    }
+
     setNavigationVisibility(true);
     clearTimeout(hideNavigationId);
 
@@ -145,7 +154,9 @@ function checkCurrentSection() {
         }
     }
 
-    hideNavigationId = setTimeout(setNavigationVisibility, 5000, false);
+    if (window.scrollY > 0) {
+        hideNavigationId = setTimeout(setNavigationVisibility, 2000, false);
+    }
 }
 
 
