@@ -81,12 +81,13 @@ function clickNavButton(e) {
     if (!buttonClicked.tagName || buttonClicked.tagName != 'BUTTON') 
         return;
     
-    const buttons = document.getElementsByClassName('navbar__button');
+   /* const buttons = document.getElementsByClassName('navbar__button');
     for (button of buttons) {
         button.classList.remove('navbar__button-active');
     }
-    buttonClicked.classList.add('navbar__button-active');
+    buttonClicked.classList.add('navbar__button-active');*/
     setActiveSection(buttonClicked.dataset.section, true);
+
   /*  const sections = document.getElementsByTagName('section');
     for (section of sections) {
         section.classList.remove('your-active-class');
@@ -107,6 +108,13 @@ function setActiveSection(sectionId, scrollTo = false) {
     if (scrollTo) {
         sectionActive.scrollIntoView({behavior: "smooth"});
     }
+
+    const activeButton = document.querySelector(`.navbar__button[data-section=${sectionId}]`);
+    const buttons = document.getElementsByClassName('navbar__button');
+    for (button of buttons) {
+        button.classList.remove('navbar__button-active');
+    }
+    activeButton.classList.add('navbar__button-active');
 }
 
 function checkCurrentSection() {
