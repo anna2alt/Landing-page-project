@@ -43,8 +43,7 @@ function buildNavigation() {
     const sections = document.querySelectorAll('section');
 
     for (section of sections) {
-        let selector = `#${section.id} h2`;
-        let title = document.querySelector(selector).textContent;
+        let title = section.dataset.nav;
 
         const newItem = document.createElement('li');
       /*  const newLink = document.createElement('a');
